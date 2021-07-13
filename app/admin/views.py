@@ -127,10 +127,20 @@ def tag_list(page=None):
     if page is None:
         page = 1
     page_data = Tag.query.order_by(
-        Tag.addtime.desc()
+        Tag.id.asc()
     ).paginate(page=page, per_page=10)
 
-    return render_template('admin/tag_list.html', page_data=page_data)
+    temp_data = Tag.query.order_by(Tag.id.asc())
+
+    play_data = {}
+
+    for page in temp_data:
+        play_data[page.id] = 0
+        movies = Movie.query.filter_by(tag_id=page.id)
+        for movie in movies:
+            play_data[page.id] += movie.playnum
+
+    return render_template('admin/tag_list.html', page_data=page_data, play_data=play_data)
 
 
 # 标签删除

@@ -41,6 +41,7 @@
                             <th>编号</th>
                             <th>名称</th>
                             <th>添加时间</th>
+                            <th>播放次数</th>
                             <th>操作事项</th>
                         </tr>
                         {% for v in page_data.items %}
@@ -48,6 +49,7 @@
                             <td>{{ v.id }}</td>
                             <td>{{ v.name }}</td>
                             <td>{{ v.addtime}}</td>
+                            <td>{{ play_data[v.id] }}</td>
                             <td>
                                 <a href="{{ url_for('admin.tag_edit', id=v.id) }}" class="label label-success">编辑</a>
                                 &nbsp;
